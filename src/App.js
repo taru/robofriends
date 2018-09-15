@@ -14,13 +14,13 @@ class App extends Component {
 
     onSearchChange = (event) => {
         this.setState({ searchfield: event.target.value })
-        // this will adjust the searchfield state to only include the search input    
+        // this will adjust the searchfield state to only include the search input. The curly braces are a special syntax to let the JSX parser know that it needs to interpret the contents in between them as JavaScript instead of a string!
     }
 
     render() {
-        const filterRobots = this.state.robots.filter(robot=> {
+        const filterRobots = this.state.robots.filter(robot => {
             return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase())
-            // this makes everything lower case - good for comparison. Then says: if it includes anything that appears in the searchfield (also lower case - so compare searchfield text to robot names w/o worries of capitalization blocking results). if the name of the robots includes what is in the search filter, then only return robots that are in the searchfield. we moved this into render so that we could pass filteredRobots as a prop to the CardList. so it will cycle through only the robots that have been filtered out in the searchfield state. 
+            // this makes everything lower case - good for comparison. Then says: if it includes anything that appears in the searchfield, then only return those robots. we moved this into render so that we could pass filteredRobots as a prop to the CardList. so it will cycle through only the robots that have been filtered out in the searchfield state. 
         })  
         return (
             <div className="tc">
