@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import CardList from './CardList';
 import SearchBox from './SearchBox';
-import { robots } from './robots';
 import './App.css';
 
 class App extends Component {
     constructor() {
         super()
         this.state = {
-                robots: robots,
+                robots: [],
                 searchfield: '',
         }
     }
+
+    componentDidMount() {
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response=> response.json())
+            .then(users => this.setState({ robots: users }))
+    }
+// we don't use arrow functions here because this is part of react
 
     onSearchChange = (event) => {
         this.setState({ searchfield: event.target.value })
@@ -23,13 +29,17 @@ class App extends Component {
             return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase())
             // this makes everything lower case - good for comparison. Then says: if it includes anything that appears in the searchfield, then only return those robots. we moved this into render so that we could pass filteredRobots as a prop to the CardList. so it will cycle through only the robots that have been filtered out in the searchfield state. 
         })  
-        return (
-            <div className="tc">
-                <h1 className="f1">RoboFriends</h1>
-                <SearchBox searchChange={this.onSearchChange}/>
-                <CardList robots={filterRobots}/>
-            </div>
-        )
+        if (this.state.robots.length === 0) {
+            return <h1>Loading</h1>
+        } else {
+            return (
+                <div className="tc">
+                    <h1 className="f1">RoboFriends</h1>
+                    <SearchBox searchChange={this.onSearchChange}/>
+                    <CardList robots={filterRobots}/>
+                </div>
+            )
+        }
     }
 }
 
