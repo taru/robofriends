@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CardList from './CardList';
 import SearchBox from './SearchBox';
+import Scroll from './Scroll';
 import './App.css';
 
 class App extends Component {
@@ -17,7 +18,7 @@ class App extends Component {
             .then(response=> response.json())
             .then(users => this.setState({ robots: users }))
     }
-// we don't use arrow functions here because this is part of react
+// note that since componentDidMount is built into React, we omit the arrow function syntax
 
     onSearchChange = (event) => {
         this.setState({ searchfield: event.target.value })
@@ -36,7 +37,9 @@ class App extends Component {
                 <div className="tc">
                     <h1 className="f1">RoboFriends</h1>
                     <SearchBox searchChange={this.onSearchChange}/>
-                    <CardList robots={filterRobots}/>
+                    <Scroll>
+                        <CardList robots={filterRobots}/>
+                    </Scroll>
                 </div>
             )
         }
