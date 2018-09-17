@@ -5,7 +5,7 @@ const Scroll = (props) => {
         <div style={{overflowY: 'scroll', border: '3px solid black', height: '800px'}}>
             {props.children}
         </div>
-        // this styles the children of Scroll so we can scroll down without losing sight of the searchbar. overflow-y property specifies whether to clip the content, add a scroll bar, or display overflow content of a block-level element, when it overflows at the top and bottom edges
+        // this styles the children of Scroll so we can scroll down without losing sight of the searchbar. overflowY property specifies whether to clip the content, add a scroll bar, or display overflow content of a block-level element, when it overflows at the top and bottom edges
     )
 };
 
