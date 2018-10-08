@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import CardList from './CardList';
-import SearchBox from './SearchBox';
-import Scroll from './Scroll';
+import CardList from '../components/CardList';
+import SearchBox from '../components/SearchBox';
+import Scroll from '../components/Scroll';
 import './App.css';
 
 class App extends Component {
@@ -26,24 +26,24 @@ class App extends Component {
     }
 
     render() {
-        const filterRobots = this.state.robots.filter(robot => {
-            return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase())
+        const { robots, searchfield } = this.state;
+        // destructuring to avoid repeating this.state everywhere. now robots will always be this.state.robots.
+        const filterRobots = robots.filter(robot => {
+            return robot.name.toLowerCase().includes(searchfield.toLowerCase())
             // this makes everything lower case - good for comparison. Then says: if it includes anything that appears in the searchfield, then only return those robots. we moved this into render so that we could pass filteredRobots as a prop to the CardList. so it will cycle through only the robots that have been filtered out in the searchfield state. 
         })  
-        if (this.state.robots.length === 0) {
-            return <h1>Loading</h1>
-        } else {
-            return (
-                <div className="tc">
-                    <h1 className="f1">RoboFriends</h1>
-                    <SearchBox searchChange={this.onSearchChange}/>
-                    <Scroll>
-                        <CardList robots={filterRobots}/>
-                    </Scroll>
-                </div>
-            )
-        }
-    }
-}
+        return (!robots.length) ?
+            // 0 evaluates to false. !false = true. this syntax is just cleaned up from robots.length === 0. Also, included ternary operator since only 2 options
+        <h1>Loading</h1> :
+        (
+        <div className="tc">
+            <h1 className="f1">RoboFriends</h1>
+            <SearchBox searchChange={this.onSearchChange}/>
+            <Scroll>
+                <CardList robots={filterRobots}/>
+            </Scroll>
+        </div>
+        )
+}}
 
 export default App;
