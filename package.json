@@ -6,7 +6,7 @@
     "@types/react-dom": "^16.0.7",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-scripts": "1.1.5",
+    "react-scripts": "2.1.1",
     "tachyons": "^4.11.1"
   },
   "scripts": {
@@ -14,5 +14,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
